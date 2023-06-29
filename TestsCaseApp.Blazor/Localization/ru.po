@@ -1,0 +1,72 @@
+msgid "RedDwarf"
+msgstr "RedDwarf"
+
+msgid "Test cases"
+msgstr "RedDwarf"
+
+msgid "Complete"
+msgstr "Завершить"
+
+msgid "Add step"
+msgstr "Добавить шаг"
+
+msgid "Name"
+msgstr "Наименование"
+
+msgid "Precondition"
+msgstr "Предусловие"
+
+msgid "Required result"
+msgstr "Ожидаемый результат"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Steps"
+msgstr "Шаги"
+
+msgid "Empty"
+msgstr "Пусто"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
+msgid "Add result"
+msgstr "Добавить результат"
+
+msgid "Result"
+msgstr "Результат"
+
+msgid "Complete with success"
+msgstr "Завершено успешно"
+
+msgid "New step"
+msgstr "Новый шаг"
+
+msgid "Great tool for testing"
+msgstr "Отличный инструмент для тестирования"
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Completed"
+msgstr "Завершено"
+
+#
+# Navigation menu
+#
+
+msgid "Home"
+msgstr "Домашняя страница"
+
+msgid "Tests"
+msgstr "Тесты"
