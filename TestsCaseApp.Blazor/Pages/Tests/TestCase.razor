@@ -13,18 +13,30 @@
     <div class="col-12 col-md-8 col-xl-7">
         <div class="mb-2">
             <label class="form-label">@Localizer["Name"]</label>
-            <input class="form-control" @bind="Model.Name">
+            <input 
+                class="form-control"
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", Model.Result is not null)})"
+                @bind="Model.Name">
         </div>
         <div class="mb-2">
             <label class="form-label">@Localizer["Precondition"]</label>
-            <textarea class="form-control" rows="4" @bind="Model.Precondition"></textarea>
+            <textarea 
+                class="form-control" rows="4" 
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", Model.Result is not null)})"
+                @bind="Model.Precondition"></textarea>
         </div>
         <div class="mb-2">
             <label class="form-label">@Localizer["Required result"]</label>
-            <textarea rows="4" class="form-control" @bind="Model.RequiredResult"></textarea>
+            <textarea 
+                rows="4" class="form-control"
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", Model.Result is not null)})"
+                @bind="Model.RequiredResult"></textarea>
         </div>
         <div class="mb-2">
-            <button class="btn btn-success form-control" @onclick="Save">@Localizer["Save"]</button>
+            <button 
+                class="btn btn-success form-control" 
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", Model.Result is not null)})"
+                @onclick="Save">@Localizer["Save"]</button>
         </div>
     </div>
 
@@ -55,10 +67,12 @@
         }
 
     }
-    <div class="col-12 col-md-8 col-xl-7">
+    <div class="col-12 col-md-8 col-xl-7"
+         @attributes="@(new KeyValuePair<string, object>[] { new ("hidden", Model.Result is not null)})">
         <button class="btn btn-primary form-control" @onclick="AddStep">@Localizer["Add step"]</button>
     </div>
-    <div class="col-12 col-md-8 col-xl-7">
+    <div class="col-12 col-md-8 col-xl-7"
+         @attributes="@(new KeyValuePair<string, object>[] { new ("hidden", Model.Result is not null)})">
         <button class="btn btn-primary form-control" data-bs-toggle="collapse" href="#collapseResult">@Localizer["Add result"]</button>
     </div>
     <div class="col-12 col-md-8 col-xl-7" >

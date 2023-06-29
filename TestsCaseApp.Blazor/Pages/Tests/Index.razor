@@ -40,8 +40,17 @@
                         <div class="h5">№@item.Number @item.Name</div>
                         <div>@item.Precondition</div>
                         <div>@item.RequiredResult</div>
-                        <div>@(item.Result?.Success)</div>
-                        <div>@(item.Result?.Comment)</div>
+                        <div>
+                            
+                            @if (item.Result?.Success ?? false)
+                            {
+                                <div>
+                                    @Localizer["Complete"]
+                                    '<span class="text-muted">@(item.Result?.Comment)</span>'
+                                </div>
+                                
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
