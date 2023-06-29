@@ -1,0 +1,49 @@
+@namespace TestsCaseApp.Blazor.Shared
+@using TestsCaseApp.Blazor.Models
+@using TestsCaseApp.Blazor.Data
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.Localization
+@inject ApplicationDbContext Context
+@inject IStringLocalizer<CreateStep> Localizer
+@inject NavigationManager Navigation
+
+<div>
+    @_error
+    <div class="card-title h5 mb-2">
+        @Localizer["Create "]
+    </div>
+    <div class="mb-2">
+        <label class="form-label">@Localizer["Description"]</label>
+        <input class="form-control" @bind="Model.Description">
+    </div>
+    <div class="mb-2">
+        <button class="btn btn-success form-control" @onclick="Create" type="submit">@Localizer["Create"]</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string TestCaseId { get; set; }
+
+    private string _error = "";
+    private TestCaseStep Model { get; set; } = new();
+    protected override async Task OnInitializedAsync()
+    {
+        Model.Number = (await Context.TestCaseSteps
+            .Where(step => step.TestCase.Id == TestCaseId)
+            .OrderByDescending(step => step.Number)
+            .FirstOrDefaultAsync())?.Number ?? 0 + 1;
+        Model.TestCase = await Context.TestCases.FirstOrDefaultAsync(test => test.Id == TestCaseId);
+
+        if (Model.TestCase is null)
+            Navigation.NavigateTo("/Tests/Index");
+            
+        await base.OnInitializedAsync();
+    }
+
+    private async Task Create()
+    {
+        await Context.AddAsync(Model);
+        await Context.SaveChangesAsync();
+    }
+}

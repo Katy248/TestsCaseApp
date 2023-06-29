@@ -1,0 +1,55 @@
+@namespace TestsCaseApp.Blazor.Shared
+@using Microsoft.Extensions.Localization
+@using Microsoft.VisualBasic.CompilerServices
+@using TestsCaseApp.Blazor.Data
+@using Microsoft.EntityFrameworkCore
+@using TestsCaseApp.Blazor.Models
+@inject IStringLocalizer<CreateTestCase> Localizer
+@inject ApplicationDbContext Context
+@inject NavigationManager Navigation
+<div>
+    <div class="card-title h5 mb-2">
+        @Localizer["Create "]
+    </div>
+    <div class="mb-2">
+        <label class="form-label">@Localizer["Name"]</label>
+        <input class="form-control" @bind="Name">
+    </div>
+    <div class="mb-2">
+        <label class="form-label">@Localizer["Precondition"]</label>
+        <textarea class="form-control" rows="4" @bind="Precondition"></textarea>
+    </div>
+    <div class="mb-2">
+        <label class="form-label">@Localizer["Required result"]</label>
+        <textarea rows="4" class="form-control" @bind="RequiredResult"></textarea>
+    </div>
+    <div class="mb-2">
+        <button class="btn btn-success form-control" @onclick="Create">@Localizer["Create"]</button>
+    </div>
+</div>
+
+@code {
+    private string Name { get; set; }
+    private string Precondition { get; set; }
+    private string RequiredResult { get; set; }
+
+    private async Task Create()
+    {
+        var lastCaseNumber = await Context.TestCases
+            .OrderByDescending(test => test.Number)
+            .Select(test => test.Number)
+            .FirstOrDefaultAsync();
+
+        var newTestCase = new TestCase
+        {
+            Number = lastCaseNumber + 1,
+            Precondition = Precondition,
+            RequiredResult = RequiredResult,
+            Name = Name,
+        };
+
+        await Context.AddAsync(newTestCase);
+        await Context.SaveChangesAsync();
+        Navigation.NavigateTo("/Tests/Index", true, true);
+    }
+}

@@ -1,0 +1,83 @@
+@namespace TestsCaseApp.Blazor.Shared
+@using Microsoft.Extensions.Localization
+@using TestsCaseApp.Blazor.Data
+@using TestsCaseApp.Blazor.Models
+@inject IStringLocalizer<Step> Localizer
+@inject NavigationManager NavigationManager
+@inject ApplicationDbContext Context
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="mb-2">
+            <input 
+                class="form-control"
+                value="@Model.Description"
+                @onchange="OnChange"
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", IsDisabled || Model.Completed)})" 
+                >
+        </div>
+        <div class="mb-2 form-check">
+            <label class="form-check-label" for="check-@Model.Id">@Localizer["Completed"]</label>
+            <input 
+                class="form-check-input" 
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", IsDisabled)})" 
+                @bind="Model.Completed" 
+                id="check-@Model.Id" 
+                type="checkbox">
+        </div>
+        @*<div class="mb-2">
+            <button class="btn btn-success form-control" @onclick="Edit">@Localizer["Save"]</button>
+        </div>*@
+        <div class="">
+            <button 
+                class="btn btn-danger form-control"
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", IsDisabled)})" 
+                @onclick="Delete">@Localizer["Delete"]</button>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public TestCaseStep Model { get; set; }
+    [Parameter]
+    public string TestCaseId { get; set; }
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; } = false;
+
+    protected override Task OnInitializedAsync()
+    {
+        
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Edit()
+    {
+        Context.Update(Model);
+        await Context.SaveChangesAsync();
+        StateHasChanged();
+        //NavigationManager.NavigateTo($"/Tests/TestCase?id={TestCaseId}", true, true);
+
+    }
+
+    private async Task Delete()
+    {
+        Context.Remove(Model);
+        await Context.SaveChangesAsync();
+        await OnDelete.InvokeAsync();
+    }
+
+    private async Task OnChange(ChangeEventArgs e)
+    {
+        Model.Description = e.Value.ToString();
+        await Edit();
+    }
+    
+
+}

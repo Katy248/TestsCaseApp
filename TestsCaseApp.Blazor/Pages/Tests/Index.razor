@@ -1,0 +1,68 @@
+@using global::TestsCaseApp.Blazor.Data
+@using global::TestsCaseApp.Blazor.Models
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Index> Localizer
+@inject NavigationManager Navigation
+@page "/Tests/Index"
+@inject ApplicationDbContext Context
+
+<div class="text-center display-4">@Localizer["Test cases"]</div>
+<div class="modal fade" id="createModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-body">
+                <CreateTestCase />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row g-2 justify-content-center">
+    <div class="col-12 col-md-8 col-xl-7">
+        <button class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
+    </div>
+    
+    @if (Items is null)
+    {
+        <div class="col-12 col-md-8 col-xl-7">Loading...</div>
+    }
+    else if (Items.Count() == 0)
+    {
+        <div>Nothing to see</div>
+    }
+    else
+    {
+        foreach (var item in Items)
+        {
+            <div class="col-12 col-md-8 col-xl-7">
+                <div class="card" @onclick="() => Navigation.NavigateTo(GetNavLink(item.Id))">
+                    <div class="card-body">
+                        <div class="h5">№@item.Number @item.Name</div>
+                        <div>@item.Precondition</div>
+                        <div>@item.RequiredResult</div>
+                        <div>@(item.Result?.Success)</div>
+                        <div>@(item.Result?.Comment)</div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<div>
+    
+</div>
+@code {
+    private IEnumerable<TestsCaseApp.Blazor.Models.TestCase> Items { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Items = await Context.TestCases.Include(test => test.Result).ToArrayAsync();
+        await base.OnInitializedAsync();
+    }
+
+    private string GetNavLink(string id)
+    {
+        return $"/Tests/TestCase?id={id}";
+    }
+
+}
