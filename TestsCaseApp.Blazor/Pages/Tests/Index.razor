@@ -19,16 +19,16 @@
 </div>
 <div class="row g-2 justify-content-center">
     <div class="col-12 col-md-8 col-xl-7">
-        <button class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
+        <button class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#createModal">@Localizer["Create"]</button>
     </div>
     
     @if (Items is null)
     {
-        <div class="col-12 col-md-8 col-xl-7">Loading...</div>
+        <div class="col-12 col-md-8 col-xl-7 text-center display-6">@Localizer["Loadinf..."]</div>
     }
     else if (Items.Count() == 0)
     {
-        <div>Nothing to see</div>
+        <div class="col-12 col-md-8 col-xl-7 text-center display-6">@Localizer["Empty"]</div>
     }
     else
     {

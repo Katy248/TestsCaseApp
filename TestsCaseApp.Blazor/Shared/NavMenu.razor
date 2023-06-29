@@ -1,10 +1,18 @@
 ﻿@using Microsoft.Extensions.Localization
 @inject IStringLocalizer<NavMenu> Localizer
-<div class="d-flex flex-row bg-warning gap-5 p-3">
-    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-        <span class="oi oi-home" aria-hidden="true"></span> @Localizer["Home"]
-    </NavLink>
-    <NavLink class="nav-link" href="Tests/Index">
-        <span class="oi oi-check" aria-hidden="true"></span> @Localizer["Tests"]
-    </NavLink>
+<div class="bg-warning ">
+    <div class="container">
+        <div class="d-flex flex-row gap-5 p-3">
+            <NavLink class="nav-link fw-semibold" href="" Match="NavLinkMatch.All">
+                    @Localizer["RedDwarf"]
+                </NavLink>
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> @Localizer["Home"]
+                </NavLink>
+                <NavLink class="nav-link" href="Tests/Index">
+                    <span class="oi oi-check" aria-hidden="true"></span> @Localizer["Tests"]
+                </NavLink>
+        </div>
+    </div>
+    
 </div>

@@ -26,4 +26,11 @@
       <None Remove="TestsAppDatabase.db-wal" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Localization\ru.po" />
+      <Resource Include="Localization\ru.po">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+    </ItemGroup>
+
 </Project>

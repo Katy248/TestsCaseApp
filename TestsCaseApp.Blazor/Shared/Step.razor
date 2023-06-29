@@ -32,7 +32,8 @@
         <div class="">
             <button 
                 class="btn btn-danger form-control"
-                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", IsDisabled)})" 
+ 
+                @attributes="@(new KeyValuePair<string, object>[] { new ("disabled", IsDisabled)})"
                 @onclick="Delete">@Localizer["Delete"]</button>
         </div>
     </div>

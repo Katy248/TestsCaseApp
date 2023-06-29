@@ -69,6 +69,7 @@
     }
     <div class="col-12 col-md-8 col-xl-7"
          @attributes="@(new KeyValuePair<string, object>[] { new ("hidden", Model.Result is not null)})">
+         
         <button class="btn btn-primary form-control" @onclick="AddStep">@Localizer["Add step"]</button>
     </div>
     <div class="col-12 col-md-8 col-xl-7"
@@ -131,7 +132,8 @@
     {
         var newStep = new TestCaseStep { TestCase = Model, Number = Model.Steps.Count() + 1, Description = Localizer["New step"] };
         await Context.AddAsync(newStep);
-        Model.Steps.Add(newStep);
+        //Model.Steps.Add(newStep);
+        await Context.SaveChangesAsync();
         StateHasChanged();
     }
 
