@@ -42,14 +42,15 @@
                         <div>@item.RequiredResult</div>
                         <div>
                             
-                            @if (item.Result?.Success ?? false)
+                            @if (item.Result is not null)
                             {
+
                                 <div>
-                                    @Localizer["Complete"]
+                                    @(item.Result.Success ? Localizer["Complete"] : "")
                                     '<span class="text-muted">@(item.Result?.Comment)</span>'
                                 </div>
-                                
                             }
+                            
                         </div>
                     </div>
                 </div>
